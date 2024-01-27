@@ -1,6 +1,11 @@
 const db = require('../database');
 
 class ExamRepository {
+  async find() {
+    const results = await db.query('SELECT * FROM exams;');
+    return results;
+  }
+  
   async create({ code, description, price }) {
     const results = await db.query(`
     INSERT INTO exams(code, description, price)
@@ -10,12 +15,7 @@ class ExamRepository {
   }
 
   async findByCode(code) {
-    const [results] = await db.query('SELECT code FROM exams WHERE code = ?', [code]);
-    return results;
-  }
-
-  async find() {
-    const results = await db.query('SELECT * FROM exams;');
+    const [results] = await db.query('SELECT * FROM exams WHERE code = ?', [code]);
     return results;
   }
 
