@@ -1,11 +1,10 @@
 CREATE DATABASE worklabweb;
 
 CREATE TABLE IF NOT EXISTS exams (
-  id INT NOT NULL AUTO_INCREMENT,
   code VARCHAR(255) NOT NULL,
   description VARCHAR(255) NOT NULL,
   price DECIMAL(10,2) NOT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (code)
 );
 
 CREATE TABLE IF NOT EXISTS patients (
@@ -15,4 +14,13 @@ CREATE TABLE IF NOT EXISTS patients (
   sex VARCHAR(100),
   phone VARCHAR(20),
   PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS services (
+  id VARCHAR(36) NOT NULL,
+  exam_code VARCHAR(255) NOT NULL,
+  patient_id VARCHAR(36) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (exam_code) REFERENCES exams (code),
+  FOREIGN KEY (patient_id) REFERENCES patients (id) 
 );
