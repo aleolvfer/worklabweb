@@ -12,6 +12,18 @@ class ServiceController {
     response.json(servicesParsed);
   }
 
+  async show(request, response) {
+    const { id } = request.params;
+    const service = await ServiceRepository.findById(id);
+
+    if (!service) {
+      return response.semdStatus(400).json({ error: 'Service not found' });
+    }
+
+    const [servicesParsed] = serviceQueryParser(service);
+    response.json(servicesParsed);
+  }
+
   async store(request, response) {
     const { patient_id, exam_code } = request.body;
     const id = v4();

@@ -18,6 +18,7 @@ router.put('/patients/:id', PatientController.update);
 router.delete('/patients/:id', PatientController.delete);
 
 router.get('/services', ServiceController.index);
+router.get('/services/:id', ServiceController.show);
 router.post('/services', ServiceController.store);
 
 
