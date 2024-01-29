@@ -3,11 +3,13 @@ const { v4 } = require('uuid');
 const ServiceRepository = require('../repositories/ServiceRepository');
 const ExamRepository = require('../repositories/ExamRepository');
 const PatientRepository = require('../repositories/PatientRepository');
+const serviceQueryParser = require('../helpers/serviceQueryParser');
 
 class ServiceController {
   async index(request, response) {
     const services = await ServiceRepository.find();
-    response.json(services);
+    const servicesParsed = serviceQueryParser(services);
+    response.json(servicesParsed);
   }
 
   async store(request, response) {
