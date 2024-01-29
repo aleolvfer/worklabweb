@@ -27,11 +27,10 @@ class ServiceController {
         return response.status(400).json({ error: 'Exam not exists' });
       }
 
-      const uniqValues = [id, patient_id, exam_code];
+      const uniqValue = [id, patient_id, exam_code];
+      await ServiceRepository.create([uniqValue]);
 
-      const service = await ServiceRepository.create([uniqValues]);
-
-    }else {
+    } else {
       
       exam_code.map(async (exam) => {
         const examExists = await ExamRepository.findByCode(exam);
@@ -41,11 +40,10 @@ class ServiceController {
       });
       
       const manyValues = exam_code.map( (exam) => [id, patient_id, exam]);
-      const service = await ServiceRepository.create(manyValues);
+      await ServiceRepository.create(manyValues);
     }
     
-    //response.json(service);
-    response.json(request.body)
+    response.sendStatus(201);
   }
 }
 
