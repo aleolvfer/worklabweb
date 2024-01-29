@@ -7,7 +7,26 @@ class PatientRepository {
   }
 
   async findById(id) {
-    const [results] = await db.query('SELECT * FROM patients WHERE id = ?', [id]);
+    const results = await db.query(`
+    SELECT
+      patients.id AS patient_id,
+      patients.name AS patient_name,
+      patients.email AS patient_email,
+      patients.sex AS patient_sex,
+      patients.phone AS phone,
+      services.id AS service_id,
+      exams.code AS exam_code,
+      exams.description AS exam_description,
+      exams.price AS exam_price
+    FROM
+      patients
+    LEFT JOIN
+      services ON patients.id = services.patient_id
+    LEFT JOIN
+      exams ON services.exam_code = exams.code
+    WHERE
+      patients.id = ?
+    `, [id]);
     return results;
   }
 
@@ -18,9 +37,11 @@ class PatientRepository {
 
   async create({ name, email, sex, phone }) {
     const results = await db.query(`
-      INSERT INTO patients(id, name, email, sex, phone)
-      VALUES(uuid(), ?, ?, ?, ?)
-    `, [name, email, sex, phone ]);
+      INSERT INTO 
+        patients(id, name, email, sex, phone)
+      VALUES
+        (uuid(), ?, ?, ?, ?)
+    `, [name, email, sex, phone]);
     return results;
   }
 
@@ -28,9 +49,15 @@ class PatientRepository {
     name, email, sex, phone,
   }) {
     const row = await db.query(`
-      UPDATE patients
-      SET name = ?, email = ?, sex = ?, phone = ?
-      WHERE ID = ?
+      UPDATE 
+        patients
+      SET 
+        name = ?,
+        email = ?,
+        sex = ?,
+        phone = ?
+      WHERE
+        id = ?
     `, [name, email, sex, phone, id]);
 
     return row;
