@@ -57,6 +57,12 @@ class ServiceController {
     
     response.sendStatus(201);
   }
+
+  async delete(request, response) {
+    const { id } = request.params;
+    await ServiceRepository.delete(id);
+    response.sendStatus(204);
+  }
 }
 
 module.exports = new ServiceController();

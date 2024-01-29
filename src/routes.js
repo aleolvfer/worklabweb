@@ -20,6 +20,7 @@ router.delete('/patients/:id', PatientController.delete);
 router.get('/services', ServiceController.index);
 router.get('/services/:id', ServiceController.show);
 router.post('/services', ServiceController.store);
+router.delete('/services/:id', ServiceController.delete);
 
 
 module.exports = router;

@@ -50,6 +50,11 @@ class ServiceRepository {
     const results = await db.query(`INSERT INTO services(id, patient_id, exam_code) VALUES ?`, [values]);
     return results;
   }
+
+  async delete(id) {
+    const deleteOp = await db.query('DELETE FROM services WHERE id = ?', [id]);
+    return deleteOp;
+  }
 }
 
 module.exports = new ServiceRepository();
