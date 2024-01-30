@@ -7,7 +7,7 @@ class PatientRepository {
   }
 
   async findById(id) {
-    const results = await db.query(`
+    const [results] = await db.query(`
     SELECT
       patients.id AS patient_id,
       patients.name AS patient_name,

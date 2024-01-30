@@ -11,11 +11,11 @@ class PatientController {
     const { id } = request.params;
     const patient = await PatientRepository.findById(id);
 
-    if(!patient) {
+    if (!patient) {
       return response.status(404).json({ error: 'Patient not find' });
     }
     
-    const patientParsed = patientQueryParser(patient);
+    const [patientParsed] = patientQueryParser([patient]);
 
     response.json(patientParsed);
   }
@@ -24,7 +24,7 @@ class PatientController {
     const { name, email, sex, phone } = request.body;
 
     if (!name || !email) {
-      return response.status(400).json({ error: 'Invalid Arguments' });
+      return response.status(400).json({ error: `'name' and 'email' is required` });
     }
     
     const emailExists = await PatientRepository.findByEmail(email);
@@ -32,9 +32,8 @@ class PatientController {
       return response.status(400).json({ error: 'Email is alread in use' });
     }
 
-    const patient = await PatientRepository.create({ name, email, sex, phone });
+    await PatientRepository.create({ name, email, sex, phone });
     
-    //response.json(patient);
     response.json(request.body)
   }
 
@@ -47,8 +46,8 @@ class PatientController {
       return response.status(404).json({ error: 'Patient not find' });
     }
 
-    if (!name) {
-      return response.status(400).json({ error: 'Name is required' });
+    if (!name || !email) {
+      return response.status(400).json({ error: `'name' and 'email' is required` });
     }
 
     const patientByEmail = await PatientRepository.findByEmail(email);
@@ -56,9 +55,8 @@ class PatientController {
       return response.status(400).json({ error: 'Email is already in use' });
     }
 
-    const patient = await PatientRepository.update(id, { name, email, sex , phone });
+    await PatientRepository.update(id, { name, email, sex , phone });
 
-    //response.json(patient);
     response.json(request.body)
   }
   
