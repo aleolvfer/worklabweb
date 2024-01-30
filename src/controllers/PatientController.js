@@ -4,7 +4,8 @@ const patientQueryParser = require('../helpers/patientQueryParser');
 class PatientController {
   async index(request, response) {
     const patients = await PatientRepository.find();
-    response.json(patients);
+    const patientsParsed = patientQueryParser(patients);
+    response.json(patientsParsed);
   }
 
   async show(request, response) {
