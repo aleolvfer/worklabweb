@@ -20,7 +20,7 @@ class ServiceController {
       return response.semdStatus(400).json({ error: 'Service not found' });
     }
 
-    const [servicesParsed] = serviceQueryParser(service);
+    const [servicesParsed] = serviceQueryParser([service]);
     response.json(servicesParsed);
   }
 

@@ -42,7 +42,7 @@ class ExamController {
     if (!code || !description || !price) {
       return response.status(404).json({ error: `'code', 'description' and 'price' are required` });
     }
-    console.log(exam_code, "??")
+    
     const examExists = await ExamRepository.findByCode(exam_code);
     if (!examExists) {
       return response.status(404).json({ error: 'Exam not found' });

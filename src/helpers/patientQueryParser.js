@@ -1,5 +1,5 @@
-function patientQueryParser(patient) {
-  const result = patient.reduce((acc, item) =>{
+function patientQueryParser(patientArray) {
+  const result = patientArray.reduce((acc, item) =>{
     const patient = acc.find(patient => patient.patient_id === item.patient_id);
 
     if (patient) {

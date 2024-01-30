@@ -1,5 +1,5 @@
-function serviceQueryParser(service) {
-  const result = service.reduce((acc, item) =>{
+function serviceQueryParser(serviceArray) {
+  const result = serviceArray.reduce((acc, item) =>{
     const service = acc.find(service => service.service_id === item.service_id);
 
     if (service) {
