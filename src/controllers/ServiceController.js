@@ -17,7 +17,7 @@ class ServiceController {
     const service = await ServiceRepository.findById(id);
 
     if (!service) {
-      return response.semdStatus(400).json({ error: 'Service not found' });
+      return response.sendStatus(400).json({ error: 'Service not found' });
     }
 
     const [servicesParsed] = serviceQueryParser([service]);
