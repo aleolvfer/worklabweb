@@ -21,6 +21,6 @@ CREATE TABLE IF NOT EXISTS services (
   exam_code VARCHAR(255) NOT NULL,
   patient_id VARCHAR(36) NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (exam_code) REFERENCES exams (code),
+  FOREIGN KEY (exam_code) REFERENCES exams (code) ON UPDATE CASCADE,
   FOREIGN KEY (patient_id) REFERENCES patients (id) 
 );

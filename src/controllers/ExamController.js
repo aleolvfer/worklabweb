@@ -7,8 +7,8 @@ class ExamController {
   }
 
   async show(request, response) {
-    const { code } = request.params;
-    const exam = await ExamRepository.findByCode(code);
+    const { exam_code } = request.params;
+    const exam = await ExamRepository.findByCode(exam_code);
     
     if(!exam) {
       return response.status(404).json({ error: 'Exam not find' });
@@ -21,7 +21,7 @@ class ExamController {
     const { code, description, price } = request.body;
 
     if (!code || !description || !price) {
-      return response.status(400).json({ error: 'Invalid Arguments' });
+      return response.status(400).json({ error: `'code', 'description' and 'price' are required` });
     }
 
     const examExists = await ExamRepository.findByCode(code);
@@ -30,18 +30,38 @@ class ExamController {
       return response.status(404).json({ error: 'Exam already exists' });
     }
     
-    const exams = await ExamRepository.create({
-      code, description, price,
-    });
+    await ExamRepository.create({ code, description, price });
 
-    //response.json(exams);
+    response.json(request.body)
+  }
+
+  async update(request, response) {
+    const { exam_code } = request.params;
+    const { code, description, price } = request.body;
+
+    if (!code || !description || !price) {
+      return response.status(404).json({ error: `'code', 'description' and 'price' are required` });
+    }
+    console.log(exam_code, "??")
+    const examExists = await ExamRepository.findByCode(exam_code);
+    if (!examExists) {
+      return response.status(404).json({ error: 'Exam not found' });
+    }
+
+    const codeExamExists = await ExamRepository.findByCode(code);
+    if (codeExamExists && codeExamExists.code !== exam_code) {
+      return response.status(404).json({ error: 'Code Exam alredy exists' });
+    }
+
+    await ExamRepository.update(exam_code, { code, description, price });
+
     response.json(request.body)
   }
 
   async delete(request, response) {
-    const { code } = request.params;
+    const { exam_code } = request.params;
 
-    await ExamRepository.delete(code);
+    await ExamRepository.delete(exam_code);
 
     response.sendStatus(204);
   }

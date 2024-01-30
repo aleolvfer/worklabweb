@@ -7,9 +7,10 @@ const ServiceController = require('./controllers/ServiceController');
 const router = express.Router();
 
 router.get('/exams', ExamController.index);
-router.get('/exams/:code', ExamController.show);
+router.get('/exams/:exam_code', ExamController.show);
 router.post('/exams', ExamController.store);
-router.delete('/exams/:code', ExamController.delete);
+router.put('/exams/:exam_code', ExamController.update);
+router.delete('/exams/:exam_code', ExamController.delete);
 
 router.get('/patients', PatientController.index);
 router.get('/patients/:id', PatientController.show);

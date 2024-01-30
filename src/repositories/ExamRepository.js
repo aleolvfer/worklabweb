@@ -19,6 +19,21 @@ class ExamRepository {
     return results;
   }
 
+  async update(exam_code, { code, description, price }) {
+    const row = await db.query(`
+      UPDATE 
+        exams
+      SET 
+        code = ?,
+        description = ?,
+        price = ?
+      WHERE
+        code = ?
+    `, [code, description, price, exam_code]);
+
+    return row;
+  }
+
   async delete(code) {
     const deleteOp = await db.query('DELETE FROM exams WHERE code = ?', [code]);
     return deleteOp;
