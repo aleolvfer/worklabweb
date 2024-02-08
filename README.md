@@ -129,9 +129,9 @@ Utilize o POSTMAN ou ferramenta similar para fazer as chamadas, conforme exemplo
 
 ```
 {
- "patient_name": "Patient",
- "patient_email": "Patient@gmail.com",
- "patient_sex": "Masc",
+ "name": "Patient",
+ "email": "Patient@gmail.com",
+ "sex": "Masc",
  "phone": "0099",
 }
 
@@ -141,9 +141,9 @@ Utilize o POSTMAN ou ferramenta similar para fazer as chamadas, conforme exemplo
 
 ```
 {
- "patient_name": "Patient",
- "patient_email": "Patient@gmail.com",
- "patient_sex": "Masc",
+ "name": "Patient",
+ "email": "Patient@gmail.com",
+ "sex": "Masc",
  "phone": "0099",
 }
 
