@@ -9,6 +9,14 @@ Uma API REST feita em Node.js e MySQL para simular um fluxo de atendimentos onde
 
 # Instalação/Configuração
 
+## Clone o repositório
+
+```
+git clone https://github.com/aleolvfer/worklabweb.git
+cd worklabweb
+
+```
+
 ## Configurando banco de dados
 
 Utilize do arquivo `src/database/schema.sql` de referencia para criar o banco de dados e as tabelas no MySQL.
@@ -25,13 +33,6 @@ var connection = mysql.createConnection({
 
 ```
 
-## Clone o repositório
-
-```
-git clone https://github.com/aleolvfer/worklabweb.git
-cd worklabweb
-
-```
 
 ## Instale os pacotes e rode o projeto
 
